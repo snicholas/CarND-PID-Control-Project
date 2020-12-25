@@ -30,7 +30,9 @@ class PID {
    * @output The total PID error
    */
   double TotalError();
-
+  void Restart(uWS::WebSocket<uWS::SERVER> ws);
+  void Twiddle();
+  void printparams();
  private:
   /**
    * PID Errors
@@ -38,6 +40,12 @@ class PID {
   double p_error;
   double i_error;
   double d_error;
+  double p[3] = {0.3 , 0.001 , 2.0};
+  double dp[3] = {0.1, 0.1, 0.1};
+  double tol = 0.0001;
+  double best_err = 1000000; 
+  int cur_p_i=0;
+  int p_phase[3] ={0,0,0};
 
   /**
    * PID Coefficients
